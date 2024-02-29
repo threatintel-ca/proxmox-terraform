@@ -55,9 +55,6 @@ if "$install_git"; then
 	apt install git -y
 fi
 
-git clone https://github.com/techno-tim/k3s-ansible.git ../ansible/k3s/builder/
-ansible-galaxy collection install -r ../ansible/k3s/builder/collections/requirements.yml
-
 terraform -chdir="tf" init
 cp terraform.tfvars tf/terraform.tfvars
 terraform -chdir="tf" apply -var-file="terraform.tfvars"
