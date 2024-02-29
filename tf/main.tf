@@ -12,7 +12,7 @@ resource "proxmox_vm_qemu" "k3s" {
   bootdisk                = "scsi0"
   cloudinit_cdrom_storage = var.pm_storage
   ciuser                  = var.cloudinit_user
-  tags                    = "k3s_cluster,master"
+  tags                    = var.vms[count.index].tags
   agent                   = 1
   full_clone              = true
   define_connection_info  = true
