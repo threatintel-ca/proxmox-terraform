@@ -6,16 +6,18 @@ install_git=false
 
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
 
+ansible_version=$(version $(ansible --version | egrep -o "core ([0-9]{1,}\.)+[0-9]{1,}" | awk '{print $2}'))
+
 if ! command -v ansible &>/dev/null; then
 	echo "Ansible not found"
 	install_ansible=true
 else
-	if [$(version $(ansible --version | egrep -o "core ([0-9]{1,}\.)+[0-9]{1,}" | awk '{print $2}')) -lt $(version "2.11.0")]; then
+	if [ $(version $(ansible --version | egrep -o "core ([0-9]{1,}\.)+[0-9]{1,}" | awk '{print $2}')) -lt $(version "2.11.0") ]; then
 		install_ansible=true
 	fi
 fi
 
-if "$install_ansible"; then
+if $install_ansible; then
 	echo "Installing ansible >= 2.11.0"
 	apt-add-repository ppa:ansible/ansible -y
 	apt update
@@ -55,6 +57,4 @@ if "$install_git"; then
 	apt install git -y
 fi
 
-terraform -chdir="tf" init
-cp terraform.tfvars tf/terraform.tfvars
-terraform -chdir="tf" apply -var-file="terraform.tfvars"
+echo "Init complete"
