@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [[ -z "${PM_USER}" || -z "${PM_PASS}" || -z "${PM_API_URL}" ]]; then
+	echo "Please make sure the following env vars are set:"
+	echo 'export PM_USER=""'
+	echo 'export PM_PASS=""'
+	echo 'export PM_API_URL=""'
+	exit 1
+fi
+
 install_anslbie=false
 install_terraform=false
 install_git=false

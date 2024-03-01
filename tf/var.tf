@@ -18,23 +18,6 @@ variable "cloudinit_user" {
   default = "ansibleuser"
 }
 
-variable "pm_api_url" {
-  type = string
-}
-
-variable "pm_user" {
-  type = string
-  validation {
-    condition     = can(regex(".*@(pve|pam)", var.pm_user))
-    error_message = "Missing authentication realm (pve | pam) such as myuser@pam or myuser@pve"
-  }
-}
-
-variable "pm_password" {
-  type      = string
-  sensitive = true
-}
-
 variable "pm_storage" {
   description = "Storage device for Proxmox VMs (Shared storage is required)"
   type        = string
@@ -61,5 +44,6 @@ variable "vms" {
     cores       = number
     sockets     = number
     memory      = number
+    onboot      = bool
   }))
 }
