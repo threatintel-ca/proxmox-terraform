@@ -1,0 +1,38 @@
+#- name: Check host prerequisites
+#  vars_prompt:
+#    - name: current_password
+#      prompt: "Enter your user password"
+#      private: yes
+#
+#  pre_tasks:
+#    - name: Provide sudo password
+#      set_fact:
+#        ansible_become_pass: "{{ current_password }}"
+#  hosts: localhost
+#  become_method: sudo
+#  roles:
+#   - check
+
+- name: Playbook variable accessible in sub-task files
+  hosts: tpot
+  gather_facts: false
+  tasks:
+    - name: Set variable accessible in sub-task files
+      set_fact:
+        tpot_password: "{{ lookup('password', '/dev/null length=12 chars=ascii_letters,digits,special_characters') }}"
+        ssh_password: "{{ lookup('password', '/dev/null length=12 chars=ascii_letters,digits,special_characters') }}"
+        user_salt: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits') }}"
+
+    - name: Include sub-task files
+      include_tasks: roles/install/tasks/main.yaml
+
+    - name: Include sub-task files
+      include_tasks: roles/reboot/tasks/main.yaml
+
+- name: Install T-Pot
+  hosts: tpot
+  become: yes
+  gather_facts: no
+  roles:
+    - install
+    - reboot

@@ -13,9 +13,14 @@ variable "ssh_keys" {
   }
 }
 
+variable "PM_ENDPOINT" {
+  type        = string
+  description = "Proxmox Endpoint"
+}
+
 variable "cloudinit_user" {
   type    = string
-  default = "ansibleuser"
+  default = "ansible"
 }
 
 variable "pm_storage" {

@@ -1,0 +1,23 @@
+- name: Finally rebooting T-Pot
+  become: yes
+  ansible.builtin.command: shutdown -r now
+  async: 1
+  poll: 0
+
+- name: Next login options
+  ansible.builtin.debug:
+    msg:
+    - "*****    SSH Access:"
+    - "*****    ssh {{ ansible_user }}@{{ ansible_host }} -p 64295"
+    - "*****    user: {{ ansible_user }}"
+    - "*****    pass: {{ ssh_password }}"
+    - ""
+    - "*****    Web UI:"
+    - "*****    https://{{ ansible_host }}:64297"
+    - "*****    user: thunter"
+    - "*****    pass: {{ tpot_password }}"
+    - ""
+    - "*****    Admin UI:"
+    - "*****    https://{{ ansible_host }}:64294"
+    - "*****    user: {{ ansible_user }}"
+    - "*****    pass: {{ ssh_password }}"

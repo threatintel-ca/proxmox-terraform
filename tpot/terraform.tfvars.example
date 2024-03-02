@@ -1,0 +1,21 @@
+pm_storage              = "pm-data"
+cloudinit_template_name = "debian11-cloud-qemu"
+vlan_id                 = 1
+vm_prefix               = "tpot"
+
+ssh_keys = {
+  pub  = "/home/user/.ssh/id_rsa.pub",
+  priv = "/home/user/.ssh/id_rsa"
+}
+
+vms = [
+  {
+    target_node = "node-1",
+    tags        = "tpot",
+    ip          = "192.168.0.20",
+    sockets     = 2,
+    cores       = 2,
+    memory      = 16384,
+    onboot      = true
+  }
+]

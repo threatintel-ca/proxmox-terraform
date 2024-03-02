@@ -8,4 +8,5 @@ terraform {
 }
 
 provider "proxmox" {
+  pm_api_url = "${var.PM_ENDPOINT}/api2/json"
 }
