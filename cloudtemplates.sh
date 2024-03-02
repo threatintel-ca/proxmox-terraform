@@ -1,6 +1,6 @@
 #!/bin/bash
 
-storage_device="$2:?Missing storage device i.e. local-lvm"
+storage_device="${2:?Missing storage device i.e. local-lvm}"
 
 if ! command -v virt-customize &>/dev/null; then
 	apt install guestfs-tools
@@ -22,7 +22,7 @@ fi
 if [ "$1" = "debian" ]; then
 	wget https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2
 	virt-customize -a debian-11-generic-amd64.qcow2 --install qemu-guest-agent
-	qm create 9001 --memory 2048 --core 2 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+	qm create 9001 --memory 2048 --core 2 --name debian11-cloud-qemu --net0 virtio,bridge=vmbr0
 	qm importdisk 9001 debian-11-generic-amd64.qcow2 $storage_device
 	qm set 9001 --scsihw virtio-scsi-pci --scsi0 $storage_device:vm-9001-disk-0
 	qm set 9001 --ide2 $storage_device:cloudinit
