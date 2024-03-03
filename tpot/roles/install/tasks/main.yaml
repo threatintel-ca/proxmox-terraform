@@ -2,12 +2,6 @@
 - name: Waiting for SSH connection
   ansible.builtin.wait_for_connection:
 
-- name: Wait for dpkg lock to be released
-  ansible.builtin.wait_for:
-    path: /var/lib/dpkg/lock
-    state: absent
-  when: dpkg_lock.stat.exists 
-
 - name: Install dependencies
   become: yes
   ansible.builtin.package:
