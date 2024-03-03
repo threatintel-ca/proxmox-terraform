@@ -17,6 +17,8 @@ if [ "$1" = "ubuntu" ]; then
 	qm set 9000 --boot c --bootdisk scsi0
 	qm set 9000 --serial0 socket --vga serial0
 	qm template 9000
+
+	rm jammy-server-cloudimg-amd64.img
 fi
 
 if [ "$1" = "debian" ]; then
@@ -29,4 +31,6 @@ if [ "$1" = "debian" ]; then
 	qm set 9001 --boot c --bootdisk scsi0
 	qm set 9001 --serial0 socket --vga serial0
 	qm template 9001
+
+	rm debian-11-generic-amd64.qcow2
 fi

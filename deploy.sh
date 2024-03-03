@@ -1,4 +1,4 @@
-ANSIBLE_HOST_KEY_CHECKING=False
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 desired_service="${1:?Missing service name [k3s, tpot]}"
 desired_action="${2:?Missing action [up, down]}"

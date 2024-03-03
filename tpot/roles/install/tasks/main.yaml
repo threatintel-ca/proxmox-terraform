@@ -2,13 +2,26 @@
 - name: Waiting for SSH connection
   ansible.builtin.wait_for_connection:
 
+- name: Wait for dpkg lock to be released
+  ansible.builtin.wait_for:
+    path: /var/lib/dpkg/lock
+    state: absent
+  when: dpkg_lock.stat.exists 
+
+- name: Install dependencies
+  become: yes
+  ansible.builtin.package:
+    name:
+      - git
+    state: present
+
 - name: Cloning T-Pot install directory
   become: yes
   ansible.builtin.git:
     repo: "https://github.com/telekom-security/tpotce.git"
     dest: /root/tpot
 
-- name: Changing password for user "{{ user_name }}"
+- name: Changing password for user
   become: yes
   ansible.builtin.user:
     name: ansible
@@ -18,6 +31,8 @@
   become: yes
   ansible.builtin.copy:
     content: |
+      # tpot configuration file
+      # myCONF_TPOT_FLAVOR=[STANDARD, HIVE, HIVE_SENSOR, INDUSTRIAL, LOG4J, MEDICAL, MINI, SENSOR]
       myCONF_TPOT_FLAVOR='STANDARD'
       myCONF_WEB_USER='thunter'
       myCONF_WEB_PW='{{ tpot_password }}'
@@ -28,7 +43,7 @@
 
 - name: Install T-Pot on instance -  be patient, this might take 15 to 30 minutes depending on the connection speed.
   become: yes
-  ansible.builtin.command: /root/tpot/iso/installer/install.sh --type=auto --conf=/root/tpot.conf
+  ansible.builtin.shell: /root/tpot/iso/installer/install.sh --type=auto --conf=/root/tpot.conf
 
 - name: Delete T-Pot configuration file
   become: yes

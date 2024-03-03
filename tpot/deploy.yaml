@@ -23,12 +23,6 @@
         ssh_password: "{{ lookup('password', '/dev/null length=12 chars=ascii_letters,digits,special_characters') }}"
         user_salt: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits') }}"
 
-    - name: Include sub-task files
-      include_tasks: roles/install/tasks/main.yaml
-
-    - name: Include sub-task files
-      include_tasks: roles/reboot/tasks/main.yaml
-
 - name: Install T-Pot
   hosts: tpot
   become: yes
