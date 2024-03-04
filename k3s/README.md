@@ -8,8 +8,7 @@ Generate a file named `terraform.tfvars` in the project root. This file will con
 
 ## 2. Open `variables`
 
-Navigate to the directory containing the `variables` file using your preferred text editor or command-line interface.
-Update the variables within.
+Using your preferred text editor or command-line interface, modify `variables` with your desired values.
 
 ## 3. Running `deploy.sh`
 
