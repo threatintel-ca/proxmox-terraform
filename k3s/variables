@@ -1,0 +1,4 @@
+export TIMEZONE='timezone' #https://en.wikipedia.org/wiki/List_of_tz_databadse_time_zones
+export VIRTUAL_IP='192.168.0.100'
+export METALLB_RANGE='192.168.0.200-192.168.0.210'
+export K3S_TOKEN='something-super-secure'

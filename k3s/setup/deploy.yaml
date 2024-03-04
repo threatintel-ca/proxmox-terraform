@@ -1,0 +1,11 @@
+- name: Init
+  hosts: localhost
+  tasks:
+    - name: Git pull k3s ansible repo
+      ansible.builtin.git:
+        repo: "https://github.com/techno-tim/k3s-ansible.git"
+        dest: "/tmp/k3s/"
+        version: "v1.29.0+k3s1+tt3"
+
+- name: K3s install 
+  import_playbook: /tmp/k3s/site.yml

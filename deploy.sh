@@ -7,8 +7,13 @@ if [ "$desired_action" = "up" ]; then
 	terraform -chdir="tf" init
 	terraform -chdir="tf" apply -var-file="../${desired_service}/terraform.tfvars" -auto-approve
 
-	if [ -e "${desired_service}/deploy.yaml" ]; then
-		ansible-playbook -i "${desired_service}/inventory.proxmox.yml" "${desired_service}/deploy.yaml"
+	if [ -e "${desired_service}/variables" ]; then
+		echo "Variables set"
+		source "${desired_service}/variables"
+	fi
+
+	if [ -e "${desired_service}/setup/deploy.yaml" ]; then
+		ansible-playbook -i "${desired_service}/setup/inventory.proxmox.yaml" "${desired_service}/setup/deploy.yaml"
 	fi
 fi
 
