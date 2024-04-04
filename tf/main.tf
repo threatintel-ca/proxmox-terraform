@@ -1,4 +1,4 @@
-resource "proxmox_vm_qemu" "k3s" {
+resource "proxmox_vm_qemu" "vm" {
   count                   = length(var.vms)
   name                    = "${var.vm_prefix}-${count.index}"
   target_node             = var.vms[count.index].target_node

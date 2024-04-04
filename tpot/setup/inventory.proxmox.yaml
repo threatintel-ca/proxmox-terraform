@@ -6,7 +6,6 @@ password: "{{ lookup('ansible.builtin.env', 'PM_PASS') }}"
 url: "{{ lookup('ansible.builtin.env', 'TF_VAR_PM_ENDPOINT') }}"
 want_facts: true
 keyed_groups:
-    # proxmox_tags_parsed is an example of a fact only returned when 'want_facts=true'
   - key: proxmox_tags_parsed
     separator: ""
     prefix: group

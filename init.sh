@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ -z "${PM_USER}" || -z "${PM_PASS}" || -z "${PM_API_URL}" ]]; then
+if [[ -z "${PM_USER}" || -z "${PM_PASS}" || -z "${TF_VAR_PM_ENDPOINT}" ]]; then
 	echo "Please make sure the following env vars are set:"
 	echo 'export PM_USER=""'
 	echo 'export PM_PASS=""'
-	echo 'export PM_API_URL=""'
+	echo 'export TF_VAR_PM_ENDPOINT=""'
 	exit 1
 fi
 
