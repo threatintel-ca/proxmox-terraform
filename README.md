@@ -9,6 +9,7 @@ Before running the script, ensure the following:
     You have access to a Proxmox VE server.
     You have administrative privileges or sufficient permissions to create templates.
     You have the necessary cloud image files for Ubuntu and Debian.
+    You have python3-pip installed along with `netaddr` package.
 
 ## Usage
 
